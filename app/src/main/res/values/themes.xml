@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+        <style name="Theme.AbhedWebSoft" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="colorPrimary">#6200EE</item>
+            <item name="colorPrimaryDark">#3700B3</item>
+            <item name="colorAccent">#03DAC5</item>
+        </style>
 
-    <style name="Theme.AbhedWebSoft" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
