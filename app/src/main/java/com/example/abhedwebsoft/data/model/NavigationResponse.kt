@@ -13,9 +13,9 @@ data class UserResult(
 
 data class MenuItem(
     val type: Int,
-    val module: String?,
+    val module: String? = null,
     val label: String,
-    val icon: String,
-    val url: String,
-    val `class`: String
+    val icon: String = "",
+    val url: String = "",
+    val `class`: String = ""
 )

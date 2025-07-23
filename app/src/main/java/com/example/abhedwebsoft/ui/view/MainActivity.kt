@@ -1,28 +1,27 @@
 package com.example.abhedwebsoft.ui.view
 
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
-import com.example.abhedwebsoft.R
-import com.example.abhedwebsoft.databinding.ActivityMainBinding
-import com.example.abhedwebsoft.ui.adapter.MenuAdapter
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.view.GravityCompat
+import androidx.core.view.updateLayoutParams
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.abhedwebsoft.R
+import com.example.abhedwebsoft.databinding.ActivityMainBinding
 import com.example.abhedwebsoft.ui.viewmodel.NavigationViewModel
 import com.example.abhedwebsoft.utils.Resource
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val viewModel: NavigationViewModel by viewModels()
-    private lateinit var menuAdapter: MenuAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +30,27 @@ class MainActivity : AppCompatActivity() {
         val headerImageView = headerView.findViewById<AppCompatImageView>(R.id.profileImageView)
         val headerNameTextView = headerView.findViewById<AppCompatTextView>(R.id.usernameTextView)
 
-        menuAdapter = MenuAdapter()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            binding.ivDrawerMenu.setOnApplyWindowInsetsListener { view, insets ->
+                val statusBarHeight = insets.getInsets(WindowInsets.Type.statusBars()).top
+                view.updateLayoutParams<androidx.constraintlayout.widget.ConstraintLayout.LayoutParams> {
+                    topMargin = statusBarHeight + 20 // Add existing 20dp margin
+                }
+                insets
+            }
+        } else {
+            val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+            val statusBarHeight =
+                if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
+            binding.ivDrawerMenu.updateLayoutParams<androidx.constraintlayout.widget.ConstraintLayout.LayoutParams> {
+                topMargin = statusBarHeight + 20 // Add existing 20dp margin
+            }
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContent, MainMenuFragment())
+            .commit()
+
 
         viewModel.getMenus()
         viewModel.menusLiveData.observe(this) { state ->
@@ -39,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
                     state.data?.let {
@@ -47,11 +67,11 @@ class MainActivity : AppCompatActivity() {
                         Glide.with(this)
                             .load(result.user_photo)
                             .placeholder(R.drawable.ic_launcher_background)
-                            .into(headerImageView) // fixed variable name
+                            .into(headerImageView)
 
-                        menuAdapter.submitList(result.menus)
                     }
                 }
+
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
@@ -59,10 +79,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        menuAdapter = MenuAdapter()
-        val recyclerView = binding.navView.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.drawerRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = menuAdapter
+
 
         binding.ivDrawerMenu.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {

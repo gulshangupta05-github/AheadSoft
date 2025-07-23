@@ -19,7 +19,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp">
 
                 <TextView
                     android:id="@+id/menu"
@@ -80,9 +80,9 @@
                     android:id="@+id/constraintLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/bg_circle_all_grey"
-                    android:padding="10dp"
+                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/selectLanguage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/selectLanguage">
@@ -105,7 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="@color/white"
+                    android:background="@drawable/bg_white_circle"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
@@ -117,6 +117,9 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_circle_clip"
+                        android:clipToOutline="true"
                         android:src="@mipmap/ic_launcher"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +132,7 @@
                         android:text="@string/userName"
                         android:textColor="@color/black"
                         android:textSize="16sp"
+                        android:id="@+id/tvMenuUserName"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
                         app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
@@ -152,94 +156,154 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/profileCL"
-                    app:layout_constraintStart_toStartOf="@+id/profileCL"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profileCL" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
+                    android:id="@+id/tvAppsHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Apps"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/profileCL"
+                    app:layout_constraintTop_toBottomOf="@+id/rvAllContent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAppsItems"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/rvAllContent"
+                    app:layout_constraintStart_toStartOf="@+id/rvAllContent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAppsHeader" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSeeMore"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
                     android:background="@color/dark_grey"
+                    android:gravity="center"
                     android:text="@string/seeMore"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="22dp"
                     android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/rvAllContent"
-                    app:layout_constraintStart_toStartOf="@+id/rvAllContent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvAllContent" />
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="@+id/profileCL"
+                    app:layout_constraintStart_toStartOf="@+id/profileCL"
+                    app:layout_constraintTop_toBottomOf="@+id/rvAppsItems" />
 
+                <TextView
+                    android:id="@+id/tvHelpMoreHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Help  More"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="@+id/tvAppsHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSeeMore" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHelpMoreItems"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/rvAppsItems"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHelpMoreHeader" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/clRateUs"
+                    android:background="@drawable/bg_white_circle"
+                    app:layout_constraintBottom_toTopOf="@+id/clSignOut"
+                    app:layout_constraintEnd_toEndOf="@+id/clSignOut"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/rvHelpMoreItems"
+                    app:layout_constraintStart_toStartOf="@+id/clSignOut"
+                    app:layout_constraintHorizontal_chainStyle="packed">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_rate_us"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/img"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvRandom"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRandom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  "
+                        android:layout_marginEnd="35dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rate_us"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rateus"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvRandom"
+                        app:layout_constraintStart_toEndOf="@+id/tvRandom"
+                        app:layout_constraintTop_toTopOf="@+id/tvRandom" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSignOut"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/bg_red_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signout"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/clSignOut"
-            app:layout_constraintEnd_toEndOf="@+id/clSignOut"
-            app:layout_constraintStart_toStartOf="@+id/clSignOut"
-            app:layout_constraintHorizontal_chainStyle="packed">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_rate_us"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/globe"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rate_us"
-                android:layout_marginEnd="10dp" />
-
-            <TextView
-                android:id="@+id/tvRandom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="jfjkdsfds"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="157dp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/rate_us"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rate us"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvRandom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvRandom"
-                app:layout_constraintTop_toTopOf="@+id/tvRandom" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clSignOut"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_red_border"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signout"
-                android:textAlignment="center"
-                android:textColor="@color/red"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
