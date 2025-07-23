@@ -41,23 +41,39 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.appcompat)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.appcompat)
         implementation(libs.material)
         implementation(libs.recyclerview)
         implementation(libs.constraintlayout)
 
+        // Lifecycle ViewModel + LiveData
         implementation(libs.lifecycle.viewmodel.ktx)
-        implementation(libs.coroutines.android)
+        implementation(libs.lifecycle.livedata.ktx)
 
+        // Coroutines
+        implementation(libs.coroutines.android)
+        implementation(libs.coroutines.core)
+
+        // Retrofit
+        implementation(libs.retrofit2)
+        implementation(libs.retrofit2ConverterGson)
+
+        // Glide
         implementation(libs.glide)
-        kapt(libs.glide.compiler) // Use kapt plugin in build.gradle.kts
+        kapt(libs.glide.compiler)
+
+    implementation(libs.circleimageview.lib)
+
+    // Activity ViewModel delegate
+        implementation(libs.androidx.activity.ktx)
+
+        // Testing
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
+
+
 
 }
